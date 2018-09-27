@@ -1,24 +1,73 @@
+{% load static %}
 <!DOCTYPE html>
   <head>
   <title>stackhub | {% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet" href="{% static 'stackhub/css/app.css' %}">
   </head>
 
   <body>
+
     <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
+        <a href="{% url 'home' %}" class="brand-logo">Stackhub</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="sass.html">Sass</a></li>
-          <li><a href="badges.html">Components</a></li>
-          <li><a href="collapsible.html">JavaScript</a></li>
+
+          {% if request.user.is_authenticated %}
+          <li><a href="{% url 'profile_page'%}">profile</a></li>
+          <li><a href="{% url 'logout'%}">logout</a></li>
+          {% else %}
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#login">login</a></li>
+          {% endif %}
+          <li><a href="{% url 'post_questionpage'%}">PostQuestion</a></li>
       </ul>
     </div>
     </nav>
+
+    {% if not request.user.is_authenticated %}
+    <!-- Modal Structure -->
+      <div id="login" class="modal">
+        <div class="modal-content">
+          <h4>Login</h4>
+          <div>
+            {% if form.has_errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            {{ form.non_field_errors }}
+            <form method="post" action="{% url 'login' %}" class="login-form">
+            <p><label for="id_username">Username:</label>
+              {{ form.username.errors }}
+            {{ form.username }}</p>
+            <p><label for="id_password">Password:</label>
+            {{ form.password }}</p>
+            <input type="hidden" name="next" value="/" />
+            {% csrf_token %}
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="login-submit" class="waves-effect waves-green btn-flat">Login</a>
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+      </div>
+    {% endif %}
+    <!--  -->
+    <!-- <nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Stackhub</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="{% url 'profile_page'%}">profile</a></li>
+          <li><a href="{% url 'logout'%}">logout</a></li>
+          <li><a href="{% url 'login'%}">login</a></li>
+          <li><a href="{% url 'post_questionpage'%}">PostQuestion</a></li>
+      </ul>
+    </div>
+    </nav> -->
+
 {% block content %}
 {% endblock %}
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+ <script src="{% static 'stackhub/js/app.js' %}"></script>
   </body>
 </html>

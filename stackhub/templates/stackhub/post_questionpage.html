@@ -1,0 +1,19 @@
+​{% extends "base.html" %}
+{% block content %}
+<h1>Questions</h1>
+<div class ="container">
+  <div class="row">
+    {%for quest in questions %}
+    <a href="{% url 'quest_det' quest.id %}">
+      <h4>{{ quest.name }}</h4>
+      <p>{{ quest.question_text}}</p>
+    </a>
+    {% endfor%}
+    </div>
+</div>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ question_form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
+{% endblock %}

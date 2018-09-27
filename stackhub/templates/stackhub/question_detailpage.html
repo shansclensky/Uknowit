@@ -1,5 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ quest.name }}</h1>
-<p>{{quest.question_text}}</p>
+<h4>Questions_details</h4>
+<div class ="container">
+  <div class="row">
+      <h5>{{ question.title }}</h5>
+      <p>{{ question.question }}</p>
+      <p>Tags</p>
+      <ul>
+      {% for tag in question.tags.all %}
+        <li>{{ tag.tag }}</li>
+      {% endfor %}
+      </ul>
+      <form>
+      Answer:<input type = "textfield" name = "answer" />
+      <button type="submit" >submit answer</button>
+      </form>
+    </div>
+</div>
+
+{% comment %}
+<form action="." method="post">
+    {% csrf_token %}
+    {{ question_detail_form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
+{% endcomment %}
 {% endblock %}
