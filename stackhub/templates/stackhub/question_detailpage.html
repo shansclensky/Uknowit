@@ -11,11 +11,23 @@
         <li>{{ tag.tag }}</li>
       {% endfor %}
       </ul>
-      <form>
-      Answer:<input type = "textfield" name = "answer" />
-      <button type="submit" >submit answer</button>
-      </form>
     </div>
+    <hr />
+  <div class="answers-list">
+    {% for answer in answers %}
+      <p>{{ answer.answer }}</p>
+      <hr />
+    {% endfor %}
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+    Answer:<textarea name="answer" class="materialize-textarea"></textarea>
+    {% csrf_token %}
+    <input type="hidden" id="q_id" value="{{ question.id }}" />
+    <input type="hidden" id="user_id" value="{{ user.id }}" />
+    <button type="submit" id="answer-submit-btn">submit answer</button>
+    </div>
+  </div>
 </div>
 
 {% comment %}

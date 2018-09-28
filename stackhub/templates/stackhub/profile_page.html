@@ -1,13 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container">
+
+
+<!-- <table>
+  <CENTER>
+<TABLE BORDER=6 CELLSPACING=6 CELLPADDING=20>
+<TR>
+<TD>Questions_asked</TD>
+<TD>Answered_questions</TD>
+
+</TR>
+</TABLE>
+</CENTER> -->
+<table>
+  <tr>
+    <th>Questions_asked</th>
+    <th>Answered_questions</th>
+
+  </tr>
+  <tr>
+    <td>
+      {% for question in questions %}
+      <li><a href="{% url 'question_detailpage' question.id %}">{{ question.question }}</a></li>
+      {% endfor %}
+    </td>
+<td>Alfreds Futterkiste</td>
+  </tr>
+</table>
+
+
+<!-- <div class="container">
   <p>{{ request.user.username }}</p>
   <p>{{ request.user.email }}</p>
   <p>{{ request.user.first_name }}</p>
-  <p>{{ request.user.last_name }}</p>
+  <p>{{ request.user.last_name }}</p> -->
 
-  <form action="." method="post">
+  <!-- <form action="." method="post">
     {% csrf_token %}
     {{ profile_form.as_p }}
     <input type="submit" value="Submit" />

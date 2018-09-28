@@ -2,3 +2,6 @@ form {
   width: 50%;
   align-content: center;
 }
+table, th, td, tr,{
+    border: 1px solid black;
+}

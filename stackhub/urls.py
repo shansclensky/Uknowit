@@ -9,7 +9,7 @@ from stackhub.views import(
     profile_page,
     home,
     search,
-    answer_update,
+
 
 )
 
@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^question_detailpage/(?P<q_id>[0-9]+)/$', question_detailpage, name='question_detailpage'),
     url(r'^profile_page/$',profile_page,name='profile_page'),
     url(r'^search/$', search, name='search'),
-    url(r'^answer_update/$',answer_update,name='answer_update'),
+
 
 ]
